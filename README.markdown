@@ -27,6 +27,7 @@ this directory must contain :
 
 ###Compilation
 
-run 
+run :
+
         cd ibnizoid
         ndk-build
