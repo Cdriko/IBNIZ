@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:37
+-keep class f1fa.win.app.ibnizoid { <init>(...); }
+
