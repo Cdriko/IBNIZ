@@ -1,7 +1,13 @@
 # For normal builds; remove -DX11 -lX11 from flags if you don't have X11
 CC=gcc
 EXE=ibniz
-FLAGS=`sdl-config --libs --cflags` -DX11 -lX11
+CFLAGS=-DX11 -lX11
+sdl_cflags := $(shell pkg-config --cflags sdl2 )
+sdl_libs := $(shell pkg-config --libs sdl2 )
+override CFLAGS += $(sdl_cflags)
+override LIBS += $(sdl_libs)
+FLAGS= $(CFLAGS)  $(LIBS)
+
 all: ibniz
 
 # For win32 builds using mingw32 (you'll probably need to modify these)
@@ -27,6 +33,8 @@ winexe: clean
 
 $(EXE): ui_sdl.o vm_slow.o clipboard.o compiler.o
 	$(CC) -Os -s ui_sdl.o vm_slow.o clipboard.o compiler.o -o $(EXE) $(FLAGS) -lm
+	ar rcs ibniztotal.a ui_sdl.o vm_slow.o clipboard.o compiler.o
+	ar rcs vm_slow.a vm_slow.o
 
 ui_sdl.o: ui_sdl.c ibniz.h font.i vm.h texts.i vm.h
 	$(CC) -c -Os ui_sdl.c -o ui_sdl.o $(FLAGS)
