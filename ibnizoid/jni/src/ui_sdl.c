@@ -7,9 +7,7 @@
 #include "ibniz.h"
 #include "texts.i"
 
-//speciel android
-//#include "vm.h"
-//#include "vm_slow.h"
+
 
   extern Uint32 *pixels = 0;
 struct
@@ -17,7 +15,7 @@ struct
 
   SDL_Window*s;
   SDL_Texture*o;
-
+  
   SDL_Renderer*r;
   SDL_AudioSpec as;
   int winsz,xmargin,ymargin;
@@ -210,9 +208,12 @@ void showyuv()
 
 	
 	SDL_UpdateTexture(sdl.o, NULL, pixels, (256/2) * sizeof (Uint32));
-
+ SDL_SetRenderDrawColor(sdl.r, 255, 0, 0, 255);
 	SDL_RenderClear(sdl.r);
-	SDL_RenderCopy(sdl.r, sdl.o, NULL, NULL);
+    
+    SDL_Rect draw={0,0,sdl.winsz,sdl.winsz};
+    
+	SDL_RenderCopy(sdl.r, sdl.o, NULL,&draw );
 	SDL_RenderPresent(sdl.r);
    
 }
@@ -1142,7 +1143,7 @@ void interactivemode(char*codetoload)
 int main(int argc,char**argv)
 {
 
-  signed char autorun=1;//-1
+  signed char autorun=-1;//-1
   char*codetoload = welcometext;
   ui.opt_dumpkeys=0;
   ui.opt_nonrealtime=0;
@@ -1209,21 +1210,34 @@ int main(int argc,char**argv)
 
   SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 
-  sdl.winsz=512;
+  sdl.winsz=30;
+  
+  //Screen dimensions 
+  SDL_Rect gScreenRect = { 0, 0, 320, 240 };
+  //Get device display mode 
+  SDL_DisplayMode displayMode;
+   if( SDL_GetCurrentDisplayMode( 0, &displayMode ) == 0 ) {
+        gScreenRect.w = displayMode.w; 
+        gScreenRect.h = displayMode.h;
+        sdl.winsz=displayMode.w;
+         }
+  
 
   sdl.s= SDL_CreateWindow("IBNIZ",
                             SDL_WINDOWPOS_UNDEFINED,
                             SDL_WINDOWPOS_UNDEFINED,
-							sdl.winsz, sdl.winsz,
-							SDL_WINDOW_RESIZABLE| SDL_WINDOW_OPENGL );
+							gScreenRect.w, gScreenRect.h,
+							 SDL_WINDOW_OPENGL );
  
 
   sdl.r = SDL_CreateRenderer(sdl.s, -1, 0);
   SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");  
-  SDL_RenderSetLogicalSize(sdl.r, 256, 256);
+  
+  
+ // SDL_RenderSetLogicalSize(sdl.r, 256, gScreenRect.h*256/gScreenRect.w);
 
 
-  printf("Creation de la texture \n");//analyse
+  //printf("Creation de la texture \n");//analyse
   pixels = (Uint32*) malloc(256*256*sizeof(Uint32));
  
   sdl.o=SDL_CreateTexture(sdl.r,SDL_PIXELFORMAT_YUY2,SDL_TEXTUREACCESS_STREAMING,256, 256);

@@ -5,4 +5,8 @@
 /home/cedric/AndroidStudioProjects/f1fa_ibniz_clean/ibnizoid/res/drawable-hdpi/ic_launcher.png \
 /home/cedric/AndroidStudioProjects/f1fa_ibniz_clean/ibnizoid/res/drawable-xxhdpi/ic_launcher.png \
 /home/cedric/AndroidStudioProjects/f1fa_ibniz_clean/ibnizoid/res/drawable-xhdpi/ic_launcher.png \
+/home/cedric/AndroidStudioProjects/f1fa_ibniz_clean/ibnizoid/bin/res/drawable-mdpi/ic_launcher.png \
+/home/cedric/AndroidStudioProjects/f1fa_ibniz_clean/ibnizoid/bin/res/drawable-hdpi/ic_launcher.png \
+/home/cedric/AndroidStudioProjects/f1fa_ibniz_clean/ibnizoid/bin/res/drawable-xxhdpi/ic_launcher.png \
+/home/cedric/AndroidStudioProjects/f1fa_ibniz_clean/ibnizoid/bin/res/drawable-xhdpi/ic_launcher.png \
 /home/cedric/AndroidStudioProjects/f1fa_ibniz_clean/ibnizoid/bin/AndroidManifest.xml \
