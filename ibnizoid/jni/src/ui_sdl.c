@@ -1032,8 +1032,29 @@ void interactivemode(char*codetoload)
 				  if(y>=0 && x>=0 && y<=255 && x<=255)
 					vm.userinput=(vm.userinput&0xFFFF0000)|(y<<8)|x;
 				}
+                else if(e.type==SDL_FINGERDOWN)
+                {
+                    //double click : on/off playing
+                        
+                        pauseaudio(ui.runstat);
+					ui.runstat^=1;
+					if(ui.runstat==0)
+					{
+					  ui.paused_since=getticks();
+					} else
+					{
+					  ui.timercorr+=getticks()-ui.paused_since;
+					  ui.mops=ui.fps=ui.bmtime=0;
+					}
+                        
+                        
+                        
+                      
+                    }
+                
 				else if(e.type==SDL_MOUSEBUTTONDOWN)
 				{
+                    
 				  vm.userinput|=0x80000000;
 				}
 				else if(e.type==SDL_MOUSEBUTTONUP)
